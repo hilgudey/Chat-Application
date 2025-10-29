@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Clone</title>
+  <style>
+    body {
+      background-color: #ece5dd;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #075e54;
+      color: white;
+      padding: 15px 25px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .chat-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    .chat {
+      margin-bottom: 15px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      line-height: 1.5;
+      position: relative;
+      max-width: 75%;
+      word-wrap: break-word;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .from {
+      background-color: #dcf8c6;
+      margin-left: auto;
+      text-align: right;
+      border-bottom-right-radius: 0;
+    }
+
+    .to {
+      background-color: #fff;
+      text-align: left;
+      border-bottom-left-radius: 0;
+    }
+
+    .meta {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      padding: 10px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .chat-container {
+        margin: 15px;
+        padding: 15px;
+      }
+      .chat {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>💬 WhatsApp Chat View</header>
+<form method="GET" action="/chats/new">
+  <button>Add new Chats!</button>
+</form>
+  <div class="chat-container">
+    <% if (chats.length === 0) { %>
+      <p style="text-align:center; color:#888;">No chats available yet.</p>
+    <% } else { %>
+      <% chats.forEach(chat => { %>
+        <div class="chat <%= chat.from === 'You' ? 'from' : 'to' %>">
+
+          <strong><%= chat.from %></strong> ➜ <%= chat.to %><br>
+          <p><%= chat.msg %></p>
+
+          <form method="get" action="/chats/<%= chat._id %>/edit" style="position:absolute; top:10px; right:10px;">
+            <button>edit</button>
+          </form>
+
+          <div class="meta"><%= chat.time.toLocaleString() %></div>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <footer>Designed by Yash 💚 | Express + MongoDB + EJS</footer>
+</body>
+</html>
